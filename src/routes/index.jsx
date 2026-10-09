@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../components/layout/Dashboardlayout";
@@ -20,7 +20,7 @@ import ActivityLog from "../pages/activity/ActivityLog";
 import Messages from "../pages/messages/Messages";
 import Profile from "../pages/profile/Profile";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   // Public auth pages — no sidebar/navbar chrome
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
