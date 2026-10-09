@@ -1,0 +1,20 @@
+.page-header {
+  margin: 24px 0 20px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #12173a;
+}
+
+.page-header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.page-header-emoji {
+  font-size: 14px;
+}

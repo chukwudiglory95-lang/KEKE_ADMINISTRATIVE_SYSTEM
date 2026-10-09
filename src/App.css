@@ -1,0 +1,171 @@
+/* Remove the browser's default spacing
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the entire application */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
+  color: #222;
+}
+
+/* Main dashboard container */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #172554;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+/* KAMS logo section */
+.sidebar-logo {
+  padding: 25px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-logo h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.sidebar-logo p {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Sidebar navigation */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+}
+
+/* Individual sidebar links */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 15px;
+  margin-bottom: 8px;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Change link appearance when mouse is over it */
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================
+   MAIN SECTION
+   ========================= */
+
+.main-section {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.navbar {
+  height: 75px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Navbar title */
+.navbar-left h3 {
+  font-size: 20px;
+}
+
+/* Right side of navbar */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Notification */
+.notification {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Administrator profile */
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Administrator circle */
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #172554;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Administrator text */
+.admin-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-info strong {
+  font-size: 14px;
+}
+
+.admin-info span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* =========================
+   PAGE CONTENT
+   ========================= */
+
+.page-content {
+  padding: 30px;
+}
+
+/* Dashboard heading */
+.page-content h1 {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+/* Dashboard paragraph */
+.page-content p {
+  color: #666;
+  margin-bottom: 25px;
+}

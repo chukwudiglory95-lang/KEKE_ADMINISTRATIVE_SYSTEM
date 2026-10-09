@@ -1,0 +1,9 @@
+export const COLORS = {
+  NAVY: "#0B1F4D",
+  GOLD: "#F4B400",
+  WHITE: "#FFFFFF",
+  LIGHT_GRAY: "#F5F7FA",
+  SUCCESS: "#22C55E",
+  WARNING: "#F59E0B",
+  DANGER: "#EF4444",
+};

@@ -1,0 +1,8 @@
+:root {
+  /* Theme colors — overridden live by SiteSettingsContext when the
+     Super Admin changes them in Settings → Theme Colors. */
+  --color-primary: #0b1f4d;
+  --color-primary-dark: #081538;
+  --color-secondary: #f5a623;
+  --color-bg: #eef1f8;
+}

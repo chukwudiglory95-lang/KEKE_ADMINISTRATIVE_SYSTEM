@@ -1,0 +1,23 @@
+.kera-logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.kera-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.kera-logo-word {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  color: #f5a623;
+}
+
+.kera-logo-tag {
+  font-size: 11px;
+  color: #9aa3c7;
+}

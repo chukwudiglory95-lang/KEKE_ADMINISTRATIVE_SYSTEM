@@ -1,0 +1,31 @@
+/* Shared keyframes — must come first so every other rule can use them */
+@import "./animations.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  background: #eef1f8;
+  color: #1a1f36;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #eef1f8;
+}
+
+.dashboard-right {
+  flex: 1;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+}
