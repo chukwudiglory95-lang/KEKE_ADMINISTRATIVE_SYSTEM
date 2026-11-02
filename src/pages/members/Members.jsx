@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaUserPlus, FaIdCard, FaPen } from "react-icons/fa";
 import PageHeader from "../../components/layout/PageHeader";
 import DataTable from "../../components/tables/DataTable";
+import RemovalLog from "../../components/tables/RemovalLog";
+import DeleteButton from "../../components/common/DeleteButton";
 import IDCardModal from "../../components/modals/IDCardModal";
 import RegisterMemberModal from "../../components/modals/RegisterMemberModal";
 import Avatar from "../../components/common/Avatar";
@@ -12,14 +14,39 @@ const INITIAL_MEMBERS = [
   { id: "KERA-0189", name: "Chinedu Okafor", membershipNo: "KERA-0189", phone: "0705 221 8890", union: "Nyanya Union", route: "Nyanya - CBD", kekeNo: "KK-0189", status: "Active", fee: "Paid" },
   { id: "KERA-0301", name: "Musa Abdullahi", membershipNo: "KERA-0301", phone: "0812 903 4471", union: "Kubwa Union", route: "Kubwa - Zuba", kekeNo: "KK-0301", status: "Pending", fee: "Owing" },
   { id: "KERA-0098", name: "Ibrahim Yusuf", membershipNo: "KERA-0098", phone: "0906 774 2201", union: "Lugbe Union", route: "Lugbe - Apo", kekeNo: "KK-0098", status: "Active", fee: "Paid" },
-  { id: "KERA-0410", name: "Emeka Johnson", membershipNo: "KERA-0410", phone: "0701 336 9982", union: "Gwarinpa Union", route: "Gwarinpa - Life Camp", kekeNo: "KK-0410", status: "Suspended", fee: "Owing" },
+  { id: "KERA-0410", name: "Emeka Johnson", membershipNo: "KERA-0410", phone: "0701 336 9982", union: " Gwarinpa Union", route: " Gwarinpa - Life Camp ", kekeNo: "KK-0410", status: "Suspended", fee: "Owing" },
 ];
 
 export default function Members() {
   const [members, setMembers] = useState(INITIAL_MEMBERS);
+  const [removed, setRemoved] = useState([]); // the Removal Log
   const [idCardMember, setIdCardMember] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [editingMember, setEditingMember] = useState(null);
+
+  const handleUpdate = (updatedMember) => {
+    setMembers((prev) => prev.map((m) => (m.id === updatedMember.id ? { ...m, ...updatedMember } : m)));
+  };
+
+  // TODO: with a backend this becomes e.g. api.delete(`/members/${id}`, { reason, notes })
+  const handleRemove = (member, { reason, notes }) => {
+    setMembers((prev) => prev.filter((m) => m.id !== member.id));
+    setRemoved((prev) => [
+      {
+        id: `${member.id}-${Date.now()}`,
+        record: member,
+        reason,
+        notes,
+        removedAt: new Date().toLocaleString(),
+      },
+      ...prev,
+    ]);
+  };
+
+  const handleRestore = (entry) => {
+    setMembers((prev) => [entry.record, ...prev]);
+    setRemoved((prev) => prev.filter((e) => e.id !== entry.id));
+  };
 
   const columns = [
     {
@@ -56,21 +83,23 @@ export default function Members() {
       label: "",
       sortable: false,
       render: (m) => (
-        <div style={{ display: "flex", gap: 6 }}>
+        <div className="row-actions">
           <button className="btn-outline" onClick={() => setEditingMember(m)} title="Edit Member">
             <FaPen />
           </button>
           <button className="btn-outline" onClick={() => setIdCardMember(m)} title="Generate ID Card">
             <FaIdCard /> ID Card
           </button>
+          <DeleteButton
+            itemType="Member"
+            itemName={m.name}
+            askReason
+            onConfirm={(info) => handleRemove(m, info)}
+          />
         </div>
       ),
     },
   ];
-
-  const handleUpdate = (updatedMember) => {
-    setMembers((prev) => prev.map((m) => (m.id === updatedMember.id ? { ...m, ...updatedMember } : m)));
-  };
 
   return (
     <>
@@ -92,6 +121,13 @@ export default function Members() {
         }
       />
 
+      <RemovalLog
+        title="Removed Members"
+        entries={removed}
+        nameOf={(m) => `${m.name} (${m.membershipNo})`}
+        onRestore={handleRestore}
+      />
+
       {showRegister && (
         <RegisterMemberModal
           onClose={() => setShowRegister(false)}
@@ -110,10 +146,7 @@ export default function Members() {
       )}
 
       {idCardMember && (
-        <IDCardModal
-          member={idCardMember}
-          onClose={() => setIdCardMember(null)}
-        />
+        <IDCardModal member={idCardMember} onClose={() => setIdCardMember(null)} />
       )}
     </>
   );

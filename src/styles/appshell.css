@@ -1,0 +1,142 @@
+/* =====================================================================
+   KERA app shell
+   - Navbar always spans the full width of the area beside the sidebar
+   - Footer is pinned to the bottom of the screen
+   - Only the content area scrolls (navbar, sidebar and footer stay put)
+
+   Every rule starts with "#root" or "html body" so it wins over the
+   Vite starter styles (index.css / App.css) and over older dashboard.css
+   rules without needing !important.
+   ===================================================================== */
+
+/* 1) Neutralise the Vite starter styles that shrink the whole app */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html body {
+  display: block;
+  place-items: unset;
+  min-width: 0;
+  min-height: 0;
+  background: var(--color-bg, #eef1f8);
+}
+
+html body #root {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: left;
+}
+
+/* 2) The shell: sidebar | (navbar / scrolling content / footer) */
+#root .dashboard {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#root .dashboard .sidebar {
+  flex-shrink: 0;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* The main column. Both class names are covered because older copies
+   of the layout used "dashboard-right" and newer ones "dashboard-main". */
+#root .dashboard-main,
+#root .dashboard-right {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#root .dashboard-main .navbar,
+#root .dashboard-right .navbar {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+/* The ONLY scrolling region */
+#root .dashboard-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c7cbdb transparent;
+}
+
+/* Footer pinned at the bottom, never scrolls with the page */
+#root .dashboard-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 28px;
+  background: #ffffff;
+  border-top: 1px solid #eceef4;
+  color: #9aa0b4;
+  font-size: 12.5px;
+}
+
+#root .dashboard-footer p {
+  margin: 0;
+}
+
+/* 3) Modals: an animation that ends on "transform: translateY(0)" keeps
+   a transform on the element forever, which traps position:fixed modals
+   inside the scrolling area. "backwards" fill-mode removes it afterwards. */
+#root .content-wrapper {
+  animation: fade-in-up 0.4s ease backwards;
+}
+
+/* 4) Page titles (fallback in case pageheader.css isn't loaded) */
+#root .page-header {
+  margin: 24px 0 20px;
+}
+
+#root .page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #12173a;
+}
+
+#root .page-header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 5) Printing (ID cards, reports): let the page flow normally */
+@media print {
+  #root .dashboard,
+  #root .dashboard-main,
+  #root .dashboard-right,
+  #root .dashboard-content {
+    height: auto;
+    overflow: visible;
+  }
+}
